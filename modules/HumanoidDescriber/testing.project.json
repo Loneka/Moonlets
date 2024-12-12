@@ -1,0 +1,12 @@
+{
+  "name": "HumanoidDescriber",
+  "tree": {
+    "$path": "Link.luau",
+    "Packages": {
+      "$path": "Packages",
+      "HumanoidDescriber": {
+        "$path": "src"
+      }
+    }
+  }
+}
