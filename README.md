@@ -1,12 +1,26 @@
-<h1 align="center">🧩 RbxSnips</h1>
-
 <p align="center">
-  <a href="https://github.com/imavafe/rbxsnips/actions"><img src="https://img.shields.io/github/actions/workflow/status/imavafe/rbxsnips/ci.yaml?branch=main" alt="Build Status"></a>
-  <img title="MIT licensed" alt="License" src="https://img.shields.io/github/license/ImAvafe/rbxsnips"></img>
+  <a href="https://avafe.me/moonlets">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="/gh-assets/LogoWhite.svg"></source>
+      <source media="(prefers-color-scheme: light)" srcset="/gh-assets/LogoBlack.svg"></source>
+      <img alt="Moonlets" src="/gh-assets/LogoWhite.svg" height="70"></img>
+    </picture>
+  </a>
 </p>
 
 <p align="center">
-  <a href="https://discord.gg/fyeYey62Dm"><img src="https://dcbadge.vercel.app/api/server/fyeYey62Dm"></img></a>
+  Modules and utilities for Roblox and Luau.
+</p>
+
+<p align="center">
+  <a href="https://github.com/imavafe/Moonlets/actions"><img src="https://img.shields.io/github/actions/workflow/status/imavafe/Moonlets/ci.yaml?branch=main" alt="Build Status"></img></a>
+  <img title="MIT licensed" alt="License" src="https://img.shields.io/github/license/imavafe/Moonlets"></img>
+</p>
+
+<p align="center">
+  <a href="https://avafe.me/bsky"><img src="https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff&style=for-the-badge" /></a>
+  <a href="https://avafe.me/x"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" /></a>
+  <a href="https://avafe.me/discord"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"></img></a>
 </p>
 
 ---
@@ -17,4 +31,4 @@ Just copy and paste whatever you need into your own project. Nothing's on Wally 
 
 ##
 
-[![By Avafe](/gh-assets/watermark.svg)](https://avafe.me)
+[![By Avafe](/gh-assets/ByAvafe.svg)](https://avafe.me)
