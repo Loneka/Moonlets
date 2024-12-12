@@ -1,10 +1,10 @@
 {
-  "name": "RobloxSnips",
+  "name": "Moonlets",
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
       "$className": "ReplicatedStorage",
-      "RobloxSnips": {
+      "Moonlets": {
         "$path": "modules"
       }
     }

@@ -1,5 +1,9 @@
-RobloxSnips.rbxlx
+/Moonlets.rbxlx
 *.rbxlx.lock
 *.rbxl.lock
-*Packages
-*wally.lock
+
+/Packages
+/ServerPackages
+/wally.lock
+
+/sourcemap.json
