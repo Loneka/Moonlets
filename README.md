@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  Modules and utilities for Roblox and Luau.
+  Unopinionated utility modules for Roblox and Luau.
 </p>
 
 <p align="center">
