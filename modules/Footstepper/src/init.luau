@@ -8,7 +8,7 @@ local Footstepper = {
 	BaseVolume = 5,
 }
 
-function Footstepper:UpdateSounds(Sounds: table, SoundProperties: table)
+function Footstepper:UpdateSounds(Sounds: { Sound }, SoundProperties: { [string]: any })
 	for _, Sound in ipairs(Sounds) do
 		local SoundInfo = SoundProperties[Sound.Name]
 		if SoundInfo then

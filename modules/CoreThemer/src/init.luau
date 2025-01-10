@@ -76,13 +76,15 @@ function CoreThemer:SetAvatarContextMenuEnabled(Enabled: boolean)
 	end
 end
 
-function CoreThemer:SetAvatarContextMenuTheme(Options: table?)
+function CoreThemer:SetAvatarContextMenuTheme(Options: { [string]: any }?)
 	if Options == nil then
 		Options = AVATAR_CONTEXT_MENU_THEME
 
-		local SelectionIndicator = Instance.new("Part")
-		self:_SetProperties(SelectionIndicator, SELECTION_INDICATOR_OPTIONS)
-		Options.SelectedCharacterIndicator = SelectionIndicator
+		if Options ~= nil then
+			local SelectionIndicator = Instance.new("Part")
+			self:_SetProperties(SelectionIndicator, SELECTION_INDICATOR_OPTIONS)
+			Options.SelectedCharacterIndicator = SelectionIndicator
+		end
 	end
 
 	self:CallCore("SetCore", "AvatarContextMenuTheme", Options)
@@ -104,7 +106,7 @@ function CoreThemer:SetShiftLockKeys(Keys: string?)
 	end
 end
 
-function CoreThemer:SetChatWindowTheme(Options: table?)
+function CoreThemer:SetChatWindowTheme(Options: { [string]: any }?)
 	if Options == nil then
 		Options = CHAT_WINDOW_THEME
 	end
@@ -112,7 +114,7 @@ function CoreThemer:SetChatWindowTheme(Options: table?)
 	self:_SetProperties(TextChatService.ChatWindowConfiguration, Options)
 end
 
-function CoreThemer:SetChatWindowInputTheme(Options: table?)
+function CoreThemer:SetChatWindowInputTheme(Options: { [string]: any }?)
 	if Options == nil then
 		Options = CHAT_WINDOW_INPUT_THEME
 	end
@@ -120,7 +122,7 @@ function CoreThemer:SetChatWindowInputTheme(Options: table?)
 	self:_SetProperties(TextChatService.ChatInputBarConfiguration, Options)
 end
 
-function CoreThemer:SetBubbleChatTheme(Options: table?)
+function CoreThemer:SetBubbleChatTheme(Options: { [string]: any }?)
 	if Options == nil then
 		Options = BUBBLE_CHAT_THEME
 	end
@@ -178,7 +180,7 @@ function CoreThemer:_StopAvatarSelectionHandler()
 	self._AvatarSelectionHighlight.Adornee = nil
 end
 
-function CoreThemer:_SetProperties(Instance: Instance, Properties: table)
+function CoreThemer:_SetProperties(Instance: Instance, Properties: { [string]: any })
 	for Property, Value in pairs(Properties) do
 		Instance[Property] = Value
 	end

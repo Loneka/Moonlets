@@ -1,9 +1,8 @@
 local MarketplaceService = game:GetService("MarketplaceService")
 local Players = game:GetService("Players")
 
-local RoRooms = script.Parent.Parent.Parent.Parent
-local Future = require(RoRooms.Parent.Future)
-local Signal = require(RoRooms.Parent.Signal)
+local Future = require(script.Parent.Future)
+local Signal = require(script.Parent.Signal)
 
 export type GamepassesProfile = { number }
 

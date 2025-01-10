@@ -1,11 +1,11 @@
 {
-  "name": "HumanoidDescriber",
+  "name": "GamepassHandler",
   "tree": {
     "$path": "bundler.luau",
     "Packages": {
       "$path": "roblox_packages",
 
-      "HumanoidDescriber": {
+      "GamepassHandler": {
         "$path": "src"
       }
     }

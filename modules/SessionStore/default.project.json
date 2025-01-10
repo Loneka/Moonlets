@@ -1,9 +1,10 @@
 {
-  "name": "HumanoidDescriber",
+  "name": "SessionStore",
   "tree": {
-    "$path": "Link.luau",
+    "$path": "bundler.luau",
     "Packages": {
-      "$path": "Packages",
+      "$path": "roblox_packages",
+
       "HumanoidDescriber": {
         "$path": "src"
       }

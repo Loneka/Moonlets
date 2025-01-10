@@ -1,7 +1,6 @@
 local Players = game:GetService("Players")
 
-local RoRooms = script.Parent.Parent.Parent.Parent
-local Signal = require(RoRooms.Parent.Signal)
+local Signal = require(script.Parent.Signal)
 
 export type SessionData = { any }
 export type MetaData = {

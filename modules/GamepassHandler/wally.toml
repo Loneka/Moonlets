@@ -1,8 +1,7 @@
 [package]
-name = "red-blox/future"
-version = "1.0.1"
+name = "imavafe/gamepass-handler"
+version = "0.1.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 
 [dependencies]
-Spawn = "red-blox/spawn@1.0.0"
