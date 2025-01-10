@@ -1,11 +1,14 @@
 {
-  "name": "Moonlets",
+  "name": "Felimo",
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
       "$className": "ReplicatedStorage",
-      "Moonlets": {
+      "Modules": {
         "$path": "modules"
+      },
+      "Tests": {
+        "$path": "tests"
       }
     }
   }

@@ -1,9 +1,10 @@
-/Moonlets.rbxlx
+/Felimo.rbxlx
 *.rbxlx.lock
 *.rbxl.lock
 
-Packages
-ServerPackages
-wally.lock
+roblox_packages
+lune_packages
+.pesde
+pesde.lock
 
-/sourcemap.json
+sourcemap.json
