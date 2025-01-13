@@ -8,6 +8,9 @@
       "Wrapper": {
         "$path": "src"
       }
+    },
+    "Test": {
+      "$path": "test"
     }
   }
 }

@@ -7,7 +7,7 @@ export type Wrap = {
 	Destroy: () -> (),
 }
 
-local function NewWrapper(Construct)
+local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destroy))
 	assert(Construct ~= nil, "Construct argument not provided")
 
 	local Wrapper = {
@@ -36,11 +36,11 @@ local function NewWrapper(Construct)
 	end
 
 	function Wrapper:Tag(Tag: string)
-		Wrapper.Trove:Add(CollectionService:GetInstanceAddedSignal(Wrapper.Tag):Connect(function(Instance)
+		Wrapper.Trove:Add(CollectionService:GetInstanceAddedSignal(Tag):Connect(function(Instance)
 			Wrapper:Wrap(Instance)
 		end))
 
-		Wrapper.Trove:Add(CollectionService:GetInstanceRemovedSignal(Wrapper.Tag):Connect(function(Instance)
+		Wrapper.Trove:Add(CollectionService:GetInstanceRemovedSignal(Tag):Connect(function(Instance)
 			Wrapper:Unwrap(Instance)
 		end))
 
@@ -70,34 +70,21 @@ local function NewWrapper(Construct)
 		}
 		Wrapper.Wraps[Instance] = Wrap
 
-		return Value, Destroy
+		return Value
 	end
 
 	function Wrapper:Destroy()
+		for _, Wrap in pairs(Wrapper.Wraps) do
+			Wrap.Destroy()
+			Wrap.Value = nil
+		end
+
+		Wrapper.Wraps = {}
+
 		Wrapper.Trove:Destroy()
 	end
 
 	return Wrapper
 end
-
-local Wrapper = NewWrapper(function(Instance)
-	assert(Instance:IsA("Part"))
-
-	local Object = {
-		Instance = Instance,
-	}
-
-	Object.Instance.Transparency = 1
-
-	function Object:Destroy()
-		print("ahhh i got destroyed!!")
-	end
-
-	return Object, function()
-		Object:Destroy()
-	end
-end)
-
-local WrappedObject = Wrapper:Wrap(Instance.new("Part"))
 
 return NewWrapper
