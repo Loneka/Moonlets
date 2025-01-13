@@ -1,26 +1,30 @@
 local Tests = {
 	BuiltIn = {},
+	KillCallbacks = {},
 }
 
-function Tests.Run(ModuleScript: ModuleScript): () -> ()
-	return require(ModuleScript)
+function Tests:Run(ModuleScript: ModuleScript): () -> ()
+	local NewModule = ModuleScript:Clone()
+	NewModule.Parent = ModuleScript.Parent
+
+	local Kill = require(NewModule)
+	table.insert(Tests.KillCallbacks, Kill)
+
+	return Kill
 end
 
-function Tests.RunAll(ModuleScripts: { ModuleScript }): { () -> () }
-	local KillCallbacks = {}
-
+function Tests:RunAll(ModuleScripts: { ModuleScript })
 	for _, Module in pairs(ModuleScripts) do
-		local Kill = require(Module)
-		table.insert(KillCallbacks, Kill)
+		Tests:Run(Module)
 	end
-
-	return KillCallbacks
 end
 
-function Tests.KillAll(KillCallbacks: { () -> () })
-	for _, Kill in ipairs(KillCallbacks) do
+function Tests:KillAll()
+	for _, Kill in ipairs(Tests.KillCallbacks) do
 		Kill()
 	end
+
+	Tests.KillCallbacks = {}
 end
 
 for _, Module in ipairs(script.Parent.Modules:GetChildren()) do
