@@ -1,0 +1,13 @@
+{
+  "name": "Wrapper",
+  "tree": {
+    "$path": "bundler.luau",
+    "Packages": {
+      "$path": "roblox_packages",
+
+      "Wrapper": {
+        "$path": "src"
+      }
+    }
+  }
+}
