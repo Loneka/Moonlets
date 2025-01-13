@@ -1,51 +1,66 @@
 local CollectionService = game:GetService("CollectionService")
 
-local Trove = require(script.Parent.Trove)
-
-export type Wrap = {
-	Value: any,
-	Destroy: () -> (),
-}
-
 local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destroy))
 	assert(Construct ~= nil, "Construct argument not provided")
 
-	local Wrapper = {
-		Wraps = {},
-		Trove = Trove.new(),
+	export type Wrap = {
+		Value: Value,
+		Destroy: () -> (),
 	}
 
-	function Wrapper:GetAll(): { Wrap }
-		local Wraps = {}
+	local Wrapper = {
+		Wraps = {},
+		Tags = {},
+	}
 
-		for _, Wrap in pairs(Wrapper.Wraps) do
-			table.insert(Wraps, Wrap)
+	function Wrapper:Untag(Tag: string)
+		local TagEntry = Wrapper.Tags[Tag]
+
+		if TagEntry ~= nil then
+			for _, Listener in ipairs(TagEntry.Listeners) do
+				Listener:Disconnect()
+			end
 		end
 
-		return Wraps
+		Wrapper.Tags[Tag] = nil
 	end
 
-	function Wrapper:Get(Instance: Instance)
+	function Wrapper:Tag(Tag: string)
+		local TagEntry = {
+			Listeners = {
+				CollectionService:GetInstanceAddedSignal(Tag):Connect(function(Instance)
+					Wrapper:Wrap(Instance)
+				end),
+				CollectionService:GetInstanceRemovedSignal(Tag):Connect(function(Instance)
+					Wrapper:Unwrap(Instance)
+				end),
+			},
+		}
+
+		for _, Instance in ipairs(CollectionService:GetTagged(Tag)) do
+			Wrapper:Wrap(Instance)
+		end
+
+		Wrapper.Tags[Tag] = TagEntry
+	end
+
+	function Wrapper:GetAll(): { Value }
+		local WrapValues = {}
+
+		for _, Wrap in pairs(Wrapper.Wraps) do
+			table.insert(WrapValues, Wrap.Value)
+		end
+
+		return WrapValues
+	end
+
+	function Wrapper:Get(Instance: Instance): (Value?, Destroy?)
 		local Wrap = Wrapper.Wraps[Instance]
 
 		if Wrap ~= nil then
 			return Wrap.Value, Wrap.Destroy
 		else
 			return nil
-		end
-	end
-
-	function Wrapper:Tag(Tag: string)
-		Wrapper.Trove:Add(CollectionService:GetInstanceAddedSignal(Tag):Connect(function(Instance)
-			Wrapper:Wrap(Instance)
-		end))
-
-		Wrapper.Trove:Add(CollectionService:GetInstanceRemovedSignal(Tag):Connect(function(Instance)
-			Wrapper:Unwrap(Instance)
-		end))
-
-		for _, Instance in ipairs(CollectionService:GetTagged(Tag)) do
-			Wrapper:Wrap(Instance)
 		end
 	end
 
@@ -57,20 +72,26 @@ local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destr
 		end
 	end
 
-	function Wrapper:Wrap(Instance: Instance)
-		local Value, Destroy = Construct(Instance)
+	function Wrapper:Wrap(Instance: Instance): Value
+		local ExistingWrap = Wrapper:Get(Instance)
 
-		local Wrap = {
-			Value = Value,
-			Destroy = function()
-				Destroy()
+		if ExistingWrap then
+			return ExistingWrap
+		else
+			local Value, Destroy = Construct(Instance)
 
-				Wrapper.Wraps[Instance] = nil
-			end,
-		}
-		Wrapper.Wraps[Instance] = Wrap
+			local Wrap: Wrap = {
+				Value = Value,
+				Destroy = function()
+					Destroy()
 
-		return Value
+					Wrapper.Wraps[Instance] = nil
+				end,
+			}
+			Wrapper.Wraps[Instance] = Wrap
+
+			return Value
+		end
 	end
 
 	function Wrapper:Destroy()
@@ -79,9 +100,11 @@ local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destr
 			Wrap.Value = nil
 		end
 
-		Wrapper.Wraps = {}
+		for Tag, _ in pairs(Wrapper.Tags) do
+			Wrapper:Untag(Tag)
+		end
 
-		Wrapper.Trove:Destroy()
+		Wrapper.Wraps = {}
 	end
 
 	return Wrapper
