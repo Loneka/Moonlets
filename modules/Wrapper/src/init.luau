@@ -1,5 +1,7 @@
 local CollectionService = game:GetService("CollectionService")
 
+local Signal = require(script.Parent.Signal)
+
 local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destroy))
 	assert(Construct ~= nil, "Construct argument not provided")
 
@@ -8,9 +10,14 @@ local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destr
 		Destroy: () -> (),
 	}
 
+	local InstanceWrapped: Signal.Signal<Instance, Value> = Signal.new()
+	local InstanceUnwrapped: Signal.Signal<Instance> = Signal.new()
+
 	local Wrapper = {
 		Wraps = {},
 		Tags = {},
+		InstanceWrapped = InstanceWrapped,
+		InstanceUnwrapped = InstanceUnwrapped,
 	}
 
 	function Wrapper:Untag(Tag: string)
@@ -69,6 +76,8 @@ local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destr
 
 		if Destroy ~= nil then
 			Destroy()
+
+			Wrapper.InstanceUnwrapped:Fire(Instance)
 		end
 	end
 
@@ -90,6 +99,8 @@ local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destr
 			}
 			Wrapper.Wraps[Instance] = Wrap
 
+			Wrapper.InstanceWrapped:Fire(Instance, Value)
+
 			return Value
 		end
 	end
@@ -103,6 +114,9 @@ local function NewWrapper<Value, Destroy>(Construct: (Instance) -> (Value, Destr
 		for Tag, _ in pairs(Wrapper.Tags) do
 			Wrapper:Untag(Tag)
 		end
+
+		Wrapper.InstanceWrapped:Destroy()
+		Wrapper.InstanceUnwrapped:Destroy()
 
 		Wrapper.Wraps = {}
 	end

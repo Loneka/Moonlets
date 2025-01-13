@@ -23,4 +23,3 @@ rojo = { name = "pesde/rojo", version = "^7.4.4", target = "lune" }
 
 [dependencies]
 Signal = { wally = "sleitnick/signal", version = "2.0.1" }
-Trove = { wally = "sleitnick/trove", version = "1.5.0" }
