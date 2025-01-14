@@ -1,0 +1,9 @@
+{
+  "name": "Leaderboard",
+  "tree": {
+    "$path": "src",
+    "Test": {
+      "$path": "test"
+    }
+  }
+}
