@@ -1,0 +1,9 @@
+{
+  "name": "Instantiate",
+  "tree": {
+    "$path": "src",
+    "Test": {
+      "$path": "test"
+    }
+  }
+}
