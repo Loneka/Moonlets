@@ -1,7 +1,14 @@
 {
   "name": "Leaderboard",
   "tree": {
-    "$path": "src",
+    "$path": "bundler.luau",
+    "Packages": {
+      "$path": "roblox_packages",
+
+      "Leaderboard": {
+        "$path": "src"
+      }
+    },
     "Test": {
       "$path": "test"
     }
