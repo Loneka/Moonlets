@@ -1,10 +1,10 @@
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local Signal = require(script.Parent.Signal)
-local DeepCopy = require(script.Parent.DeepCopy)
 local AvatarAssetTypes = require(script.AvatarAssetTypes)
 local AssetAccessoryTypes = require(script.AssetAccessoryTypes)
 local Future = require(script.Parent.Future)
+local TableUtil = require(script.Parent.TableUtil)
 
 export type CatalogItem = {
 	AssetId: number,
@@ -608,7 +608,7 @@ local function New(HumanoidDescription: HumanoidDescription)
 	end
 
 	function HumanoidDescriber:GetData(): Data
-		return DeepCopy(self.Data)
+		return TableUtil.Copy(self.Data, true)
 	end
 
 	function HumanoidDescriber:Destroy()

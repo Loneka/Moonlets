@@ -1,0 +1,13 @@
+{
+  "name": "EnumSerDes",
+  "tree": {
+    "$path": "bundler.luau",
+    "Packages": {
+      "$path": "roblox_packages",
+
+      "EnumSerDes": {
+        "$path": "src"
+      }
+    }
+  }
+}

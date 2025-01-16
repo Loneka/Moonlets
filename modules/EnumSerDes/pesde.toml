@@ -1,5 +1,5 @@
-name = "avafe/humanoid_describer"
-version = "0.1.1"
+name = "avafe/enum_ser_des"
+version = "0.1.0"
 authors = ["Avafe"]
 repository = "https://github.com/imavafe/moonlets"
 license = "MIT"
@@ -24,6 +24,4 @@ scripts = { name = "pesde/scripts_rojo", version = "^0.1.0", target = "lune" }
 rojo = { name = "pesde/rojo", version = "^7.4.4", target = "lune" }
 
 [dependencies]
-Signal = { wally = "sleitnick/signal", version = "^2.0.1" }
-Future = { wally = "red-blox/future", version = "^1.0.1" }
 TableUtil = { wally = "sleitnick/table-util", version = "^1.2.1" }
