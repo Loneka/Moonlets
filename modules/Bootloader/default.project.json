@@ -1,0 +1,6 @@
+{
+  "name": "Bootloader",
+  "tree": {
+    "$path": "src"
+  }
+}
