@@ -20,10 +20,17 @@ jobs:
       - name: Find all subdirectories in modules
         id: find-modules
         run: |
-          # Find all subdirectories inside the 'modules' directory and output as JSON
+          # Find all subdirectories inside the 'modules' directory
           modules=$(find ./modules -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
-          echo "modules=[${modules}]"
-          echo "::set-output name=modules::[${modules}]"
+
+          # Convert modules into a JSON array format
+          if [ -z "$modules" ]; then
+            echo "modules=[]" # No modules found, return an empty array
+          else
+            echo "modules=[${modules}]"
+          fi
+
+          echo "::set-output name=modules::[$modules]"
 
   changelog:
     name: Changelog
