@@ -25,12 +25,10 @@ jobs:
 
           # Convert modules into a JSON array format
           if [ -z "$modules" ]; then
-            echo "modules=[]" # No modules found, return an empty array
+            echo "modules=[]" >> $GITHUB_ENV  # No modules found, return an empty array
           else
-            echo "modules=[${modules}]"
+            echo "modules=[\"$modules\"]" >> $GITHUB_ENV  # Set the modules as an environment variable
           fi
-
-          echo "::set-output name=modules::[$modules]"
 
   changelog:
     name: Changelog
