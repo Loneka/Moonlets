@@ -16,7 +16,6 @@ jobs:
     steps:
       - name: Output all modules
         id: list-modules
-        working-directory: modules
         run: |
           directories=($(ls -d */))
           directories=("${directories[@]%/}")
