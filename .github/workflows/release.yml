@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  changelog:
+    name: Changelog
+    runs-on: ubuntu-latest
+    outputs:
+      release-body: ${{ steps.update-changelog.outputs.release-notes }}
+    strategy:
+      matrix:
+        module: [$(ls -d modules/*/)] # Loop over directories in 'modules'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Update changelog for ${{ matrix.module }}
+        id: update-changelog
+        uses: thomaseizinger/keep-a-changelog-new-release@3.1.0
+        with:
+          tag: ${{ github.ref_name }}
+          changelogPath: "${{ matrix.module }}docs/changelog.md" # Path adjusted for the module
+
+      # - name: Commit and push for ${{ matrix.module }}
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     message: Bump version to ${{ github.ref_name }}
+      #     default_author: github_actions
+      #     working-directory: ${{ matrix.module }} # Run commit within the module's directory
+
+  setup:
+    name: Setup Environment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout repository
+
+      - name: Setup Pesde
+        uses: 2jammers/setup-pesde@v0.3.0
+        with:
+          cache: true
+          # token: "${{ secrets.PESDE_TOKEN }}"
+
+      - name: Install dependencies
+        run: pesde install
+
+      - name: Format code with Stylua
+        run: stylua modules/
+
+      - name: Lint with Selene
+        run: selene modules/
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [changelog, setup]
+    strategy:
+      matrix:
+        module: [$(ls -d modules/*/)] # Loop over directories in 'modules'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Standalone build for ${{ matrix.module }}
+        run: rojo build default.project.json --output ./Standalone.rbxm
+        working-directory: ${{ matrix.module }} # Build within the module's directory
+
+      - name: Standalone release for ${{ matrix.module }}
+        uses: softprops/action-gh-release@v2.0.9
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          prerelease: ${{ contains(github.ref_name, 'rc') }}
+          generate_release_notes: true
+          body: |
+            ## Changelog
+            ${{ needs.changelog.outputs.release-body }}
+          files: |
+            ${{ matrix.module }}./Standalone.rbxm
+        # working-directory: ${{ matrix.module }} # Release within the module's directory
+
+  package:
+    name: Package
+    runs-on: ubuntu-latest
+    needs: [changelog, setup]
+    strategy:
+      matrix:
+        module: [$(ls -d modules/*/)] # Loop over directories in 'modules'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for ${{ matrix.module }}
+        run: pesde install
+        working-directory: ${{ matrix.module }} # Install within the module's directory
