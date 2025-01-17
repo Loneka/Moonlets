@@ -9,22 +9,21 @@ permissions:
 
 jobs:
   list-modules:
-    name: Generate Modules List
     runs-on: ubuntu-latest
     outputs:
-      modules: ${{ steps.get-modules.outputs.modules }}
+      modules: ${{ steps.set-modules.outputs.modules }}
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: main
+        uses: actions/checkout@v2
 
-      - name: Get list of modules
-        id: get-modules
+      - name: Find all subdirectories in modules
+        id: find-modules
         run: |
-          modules=$(ls -d modules/*/)
-          echo "modules=$modules" >> $GITHUB_ENV
-          echo "::set-output name=modules::$(echo $modules | tr ' ' ',')"
+          # Find all subdirectories inside the 'modules' directory and output as JSON
+          modules=$(find ./modules -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+          echo "modules=[${modules}]"
+          echo "::set-output name=modules::[${modules}]"
 
   changelog:
     name: Changelog
