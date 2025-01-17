@@ -16,10 +16,11 @@ jobs:
     steps:
       - name: Output all modules
         id: list-modules
-        working-directory: modules
+        working-directory: ../modules
         run: |
           directories=($(ls -d */))
           directories=("${directories[@]%/}")
+          excluded_directories=()
           json_array=()
           for dir in "${directories[@]}"; do
             if [[ ! " ${excluded_directories[@]} " =~ " $dir " ]]; then
