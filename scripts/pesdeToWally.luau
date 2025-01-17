@@ -44,6 +44,6 @@ local function convertProject(path: string)
 	end
 end
 
-for _, moduleName in ipairs(fs.readDir("../modules")) do
-	convertProject(`../modules/{moduleName}`)
+for _, moduleName in ipairs(fs.readDir("modules")) do
+	convertProject(`modules/{moduleName}`)
 end
