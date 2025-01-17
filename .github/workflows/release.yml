@@ -8,6 +8,24 @@ permissions:
   id-token: write
 
 jobs:
+  list-modules:
+    name: Generate Modules List
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.get-modules.outputs.modules }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Get list of modules
+        id: get-modules
+        run: |
+          modules=$(ls -d modules/*/)
+          echo "modules=$modules" >> $GITHUB_ENV
+          echo "::set-output name=modules::$(echo $modules | tr ' ' ',')"
+
   changelog:
     name: Changelog
     runs-on: ubuntu-latest
@@ -15,7 +33,7 @@ jobs:
       release-body: ${{ steps.update-changelog.outputs.release-notes }}
     strategy:
       matrix:
-        module: [$(ls -d modules/*/)] # Loop over directories in 'modules'
+        module: ${{ fromJson(needs.list-modules.outputs.modules) }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -63,7 +81,7 @@ jobs:
     needs: [changelog, setup]
     strategy:
       matrix:
-        module: [$(ls -d modules/*/)] # Loop over directories in 'modules'
+        module: ${{ fromJson(needs.list-modules.outputs.modules) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -91,7 +109,7 @@ jobs:
     needs: [changelog, setup]
     strategy:
       matrix:
-        module: [$(ls -d modules/*/)] # Loop over directories in 'modules'
+        module: ${{ fromJson(needs.list-modules.outputs.modules) }}
     steps:
       - uses: actions/checkout@v4
 
