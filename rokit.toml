@@ -5,3 +5,4 @@
 
 [tools]
 lune = "lune-org/lune@0.8.9"
+wally = "UpliftGames/wally@0.3.2"

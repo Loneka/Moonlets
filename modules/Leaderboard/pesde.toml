@@ -3,6 +3,7 @@ version = "0.1.0"
 authors = ["Avafe"]
 repository = "https://github.com/imavafe/moonlets"
 license = "MIT"
+private = true
 
 [target]
 environment = "roblox"
@@ -24,4 +25,4 @@ scripts = { name = "pesde/scripts_rojo", version = "^0.1.0", target = "lune" }
 rojo = { name = "pesde/rojo", version = "^7.4.4", target = "lune" }
 
 [dependencies]
-Instantiate = { name = "avafe/instantiate", version = "0.1.0" }
+Instantiate = { wally = "imavafe/instantiate", version = "0.1.0" }

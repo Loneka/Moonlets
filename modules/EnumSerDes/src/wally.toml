@@ -1,0 +1,12 @@
+[package]
+name = "imavafe/enum-ser-des"
+description = ""
+version = "0.1.1"
+license = "MIT"
+authors = ["Avafe"]
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+exclude = ["default.project.json"]
+
+[dependencies]
+TableUtil = "sleitnick/table-util@1.2.1"

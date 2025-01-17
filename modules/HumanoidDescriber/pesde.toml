@@ -3,6 +3,7 @@ version = "0.1.1"
 authors = ["Avafe"]
 repository = "https://github.com/imavafe/moonlets"
 license = "MIT"
+private = true
 
 [target]
 environment = "roblox"
