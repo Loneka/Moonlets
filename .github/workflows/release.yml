@@ -16,10 +16,10 @@ jobs:
     steps:
       - name: Output all modules
         id: list-modules
+        working-directory: modules
         run: |
           directories=($(ls -d */))
           directories=("${directories[@]%/}")
-          excluded_directories=("network-hub")
           json_array=()
           for dir in "${directories[@]}"; do
             if [[ ! " ${excluded_directories[@]} " =~ " $dir " ]]; then
@@ -28,7 +28,7 @@ jobs:
           done
           json_elements=$(IFS=,; echo "${json_array[*]}")
           json_output="{ \"modules\": [$json_elements] }"
-          echo "modules=$json_output" | tee -a "$GITHUB_OUTPUT"
+          echo "$json_output"
 
   changelog:
     name: Changelog
