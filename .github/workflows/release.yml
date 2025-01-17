@@ -11,7 +11,7 @@ jobs:
   list-modules:
     runs-on: ubuntu-latest
     outputs:
-      modules: ${{ steps.set-modules.outputs.modules }}
+      modules: ${{ steps.find-modules.outputs.modules }}
 
     steps:
       - name: Checkout repository
@@ -20,14 +20,18 @@ jobs:
       - name: Find all subdirectories in modules
         id: find-modules
         run: |
-          # Find all subdirectories inside the 'modules' directory
+          # Find all subdirectories inside the 'modules' directory and store them in a variable
           modules=$(find ./modules -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
 
-          # Convert modules into a JSON array format
+          # If no modules are found, return an empty JSON array
           if [ -z "$modules" ]; then
             echo "modules=[]" >> $GITHUB_ENV  # No modules found, return an empty array
           else
-            echo "modules=[\"$modules\"]" >> $GITHUB_ENV  # Set the modules as an environment variable
+            # Convert modules into a JSON array format
+            modules_array=$(echo "$modules" | sed 's/ /", "/g' | sed 's/^/["/' | sed 's/$/"]/')
+
+            # Set the formatted JSON array as the environment variable
+            echo "modules=$modules_array" >> $GITHUB_ENV  # Set the modules as an environment variable
           fi
 
   changelog:
