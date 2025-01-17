@@ -17,21 +17,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Find all subdirectories in modules
+      - name: Find subdirectories in the 'modules' directory
         id: find-modules
         run: |
-          # Find all subdirectories inside the 'modules' directory and store them in a variable
+          # Find all subdirectories inside the 'modules' directory
           modules=$(find ./modules -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
 
-          # If no modules are found, return an empty JSON array
+          # Check if any modules were found, and format them as a JSON array
           if [ -z "$modules" ]; then
             echo "modules=[]" >> $GITHUB_ENV  # No modules found, return an empty array
           else
-            # Convert modules into a JSON array format
+            # Format the modules into a JSON array
             modules_array=$(echo "$modules" | sed 's/ /", "/g' | sed 's/^/["/' | sed 's/$/"]/')
-
-            # Set the formatted JSON array as the environment variable
-            echo "modules=$modules_array" >> $GITHUB_ENV  # Set the modules as an environment variable
+            echo "modules=$modules_array" >> $GITHUB_ENV  # Save to the environment variable
           fi
 
   changelog:
