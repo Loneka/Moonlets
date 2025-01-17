@@ -3,6 +3,8 @@
 *.rbxl.lock
 
 roblox_packages
+roblox_server_packages
+luau_packages
 lune_packages
 .pesde
 pesde.lock
