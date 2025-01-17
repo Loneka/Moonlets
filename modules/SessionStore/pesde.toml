@@ -25,3 +25,4 @@ scripts = { name = "pesde/scripts_rojo", version = "^0.1.0", target = "lune" }
 rojo = { name = "pesde/rojo", version = "^7.4.4", target = "lune" }
 
 [dependencies]
+Signal = { wally = "sleitnick/signal", version = "^2.0.1" }

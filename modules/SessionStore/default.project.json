@@ -5,7 +5,7 @@
     "Packages": {
       "$path": "roblox_packages",
 
-      "HumanoidDescriber": {
+      "SessionStore": {
         "$path": "src"
       }
     }
