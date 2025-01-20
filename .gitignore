@@ -9,4 +9,6 @@ lune_packages
 .pesde
 pesde.lock
 
+wally.toml
+
 sourcemap.json
