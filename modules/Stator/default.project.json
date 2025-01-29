@@ -1,0 +1,16 @@
+{
+  "name": "Stator",
+  "tree": {
+    "$path": "bundler.luau",
+    "Packages": {
+      "$path": "roblox_packages",
+
+      "Stator": {
+        "$path": "src"
+      }
+    },
+    "Test": {
+      "$path": "test"
+    }
+  }
+}

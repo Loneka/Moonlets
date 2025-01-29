@@ -18,7 +18,7 @@ local function convertDependencies(pesdeDependencies)
 end
 
 local function convertName(pesdeName)
-	return string.gsub(string.gsub(pesdeName, "avafe/", ""), "_", "-")
+	return string.gsub(string.gsub(pesdeName, "avafe/", "imavafe/"), "_", "-")
 end
 
 local function convertManifest(pesdeToml)
@@ -26,6 +26,12 @@ local function convertManifest(pesdeToml)
 		package = {
 			name = convertName(pesdeToml.name),
 			version = pesdeToml.version,
+
+			license = pesdeToml.license,
+			authors = pesdeToml.authors,
+
+			registry = pesdeToml["wally_indices"].default,
+			realm = "shared",
 		},
 		dependencies = convertDependencies(pesdeToml.dependencies),
 	}
