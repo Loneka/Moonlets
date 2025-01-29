@@ -37,6 +37,8 @@
 | CoreThemer        | [Wally](https://wally.run/package/imavafe/core-themer)        | Easily theme Roblox's core UI        |
 | Bootloader        | [Wally](https://wally.run/package/imavafe/bootloader)         | Load / unload OOP services           |
 
+If you code in Roblox Studio, you can use [Studio Wally](https://github.com/fewkz/studio-wally) to install Wally packages.
+
 ## Values 💖
 
 - **Infer types 🧐** - Types should be inferred where possible, giving you full typing on data you construct.
