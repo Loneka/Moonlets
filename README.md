@@ -27,15 +27,15 @@
 
 ## Modules 🧩
 
-| Module            | Install                                                       | Description                          |
-| ----------------- | ------------------------------------------------------------- | ------------------------------------ |
-| Wrapper           | [Wally](https://wally.run/package/imavafe/wrapper)            | Bind code to `Instance`s             |
-| Stator            | [Wally](https://wally.run/package/imavafe/stator)             | Create minimal state machines        |
-| Instantiate       | [Wally](https://wally.run/package/imavafe/instantiate)        | Construct instances w/ less code     |
-| Leaderboard       | [Wally](https://wally.run/package/imavafe/leaderboard)        | Set leaderboard stats w/ one line    |
-| HumanoidDescriber | [Wally](https://wally.run/package/imavafe/humanoid-describer) | Easily modify `HumanoidDescription`s |
-| CoreThemer        | [Wally](https://wally.run/package/imavafe/core-themer)        | Easily theme Roblox's core UI        |
-| Bootloader        | [Wally](https://wally.run/package/imavafe/bootloader)         | Load / unload OOP services           |
+| Module            | Install                                                       | Description                          | Learn                                                           |
+| ----------------- | ------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------------------- |
+| Wrapper           | [Wally](https://wally.run/package/imavafe/wrapper)            | Bind code to `Instance`s             | [Source](https://github.com/ImAvafe/Moonlets/tree/main/modules) |
+| Stator            | [Wally](https://wally.run/package/imavafe/stator)             | Create minimal state machines        | [Source](https://github.com/ImAvafe/Moonlets/tree/main/modules) |
+| Instantiate       | [Wally](https://wally.run/package/imavafe/instantiate)        | Construct instances w/ less code     | [Source](https://github.com/ImAvafe/Moonlets/tree/main/modules) |
+| Leaderboard       | [Wally](https://wally.run/package/imavafe/leaderboard)        | Set leaderboard stats w/ one line    | [Source](https://github.com/ImAvafe/Moonlets/tree/main/modules) |
+| HumanoidDescriber | [Wally](https://wally.run/package/imavafe/humanoid-describer) | Easily modify `HumanoidDescription`s | [Source](https://github.com/ImAvafe/Moonlets/tree/main/modules) |
+| CoreThemer        | [Wally](https://wally.run/package/imavafe/core-themer)        | Easily theme Roblox's core UI        | [Source](https://github.com/ImAvafe/Moonlets/tree/main/modules) |
+| Bootloader        | [Wally](https://wally.run/package/imavafe/bootloader)         | Load / unload OOP services           | [Source](https://github.com/ImAvafe/Moonlets/tree/main/modules) |
 
 If you code in Roblox Studio, you can use [Studio Wally](https://github.com/fewkz/studio-wally) to install Wally packages.
 
