@@ -25,9 +25,23 @@
 
 ---
 
-## Instructions 🤓
+## Modules 🧩
 
-Just copy and paste whatever you need into your own project. Nothing's on Wally yet.
+| Module            | Install                                                       | Description                          |
+| ----------------- | ------------------------------------------------------------- | ------------------------------------ |
+| Wrapper           | [Wally](https://wally.run/package/imavafe/wrapper)            | Bind code to `Instance`s             |
+| Stator            | [Wally](https://wally.run/package/imavafe/stator)             | Create minimal state machines        |
+| Instantiate       | [Wally](https://wally.run/package/imavafe/instantiate)        | Construct instances w/ less code     |
+| Leaderboard       | [Wally](https://wally.run/package/imavafe/leaderboard)        | Set leaderboard stats w/ one line    |
+| HumanoidDescriber | [Wally](https://wally.run/package/imavafe/humanoid-describer) | Easily modify `HumanoidDescription`s |
+| CoreThemer        | [Wally](https://wally.run/package/imavafe/core-themer)        | Easily theme Roblox's core UI        |
+| Bootloader        | [Wally](https://wally.run/package/imavafe/bootloader)         | Load / unload OOP services           |
+
+## Values 💖
+
+- **Infer types 🧐** - Types should be inferred where possible, giving you full typing on data you construct.
+- **Don't assume 🕊️** - You should not be locked into specific formats or methodologies. Not even OOP.
+- **Minimize 😌** - Modules should not be bloated, overly-complex, or force their dependencies onto you.
 
 ##
 
