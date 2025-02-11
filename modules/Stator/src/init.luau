@@ -1,4 +1,5 @@
 local TableUtil = require(script.Parent.TableUtil)
+local DeepEquals = require(script.DeepEquals)
 
 local function CopyIfTable(Value)
 	if typeof(Value) == "table" then
@@ -8,11 +9,19 @@ local function CopyIfTable(Value)
 	end
 end
 
+local function Equals(A, B)
+	if (typeof(A) == "table") and (typeof(B) == "table") then
+		return DeepEquals(A, B)
+	else
+		return A == B
+	end
+end
+
 local function ProcessObserver(Observer, OldValue, NewValue, Force: boolean?)
 	if Observer.Specifier ~= nil then
 		local SpecificValue, NewSpecificValue = Observer.Specifier(OldValue), Observer.Specifier(NewValue)
 
-		if (not Force) and (SpecificValue == NewSpecificValue) then
+		if (not Force) and Equals(SpecificValue, NewSpecificValue) then
 			return
 		end
 
