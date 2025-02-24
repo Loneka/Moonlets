@@ -31,15 +31,15 @@ local function ProcessObserver(Observer, OldValue, NewValue, Force: boolean?)
 	end
 end
 
-local function NewStator(DefaultValue, Updaters)
+local function NewStator<Value>(Value: Value, Updaters: { [string]: (Value) -> Value })
 	local Stator = {
-		Value = DefaultValue,
+		Value = Value,
 		Updaters = Updaters,
 		Observers = {},
 	}
 
-	function Stator:Observe(Callback, Specifier: ((any) -> any)?)
-		local Value = Stator:Get()
+	function Stator:Observe(Callback: (Value, Value) -> (), Specifier: ((Value) -> any)?)
+		local InitialValue = Stator:Get()
 		local Observer = {
 			Callback = Callback,
 			Specifier = Specifier,
@@ -47,7 +47,7 @@ local function NewStator(DefaultValue, Updaters)
 
 		table.insert(Stator.Observers, Observer)
 
-		ProcessObserver(Observer, Value, Value)
+		ProcessObserver(Observer, InitialValue, InitialValue)
 
 		return function()
 			local Index = table.find(Stator.Observers, Observer)
@@ -58,17 +58,17 @@ local function NewStator(DefaultValue, Updaters)
 	end
 
 	function Stator:Update(Updater)
-		local Value = Stator:Get()
-		local NewValue = Updater(CopyIfTable(Value))
+		local OldValue = Stator:Get()
+		local NewValue = Updater(CopyIfTable(OldValue))
 
 		Stator.Value = NewValue
 
 		for _, Observer in ipairs(Stator.Observers) do
-			ProcessObserver(Observer, Value, NewValue)
+			ProcessObserver(Observer, OldValue, NewValue)
 		end
 	end
 
-	function Stator:Get()
+	function Stator:Get(): Value
 		return CopyIfTable(Stator.Value)
 	end
 
